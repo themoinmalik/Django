@@ -1,0 +1,74 @@
+{% extends 'main.html' %}
+{% load static%}
+
+{% block content %}
+<div class="container card">
+    <h1>Candidates applied</h1>
+    <div class="card-body">
+        <table class="table table-hover">
+            <tr>
+                <th>Name</th>
+                <th>DOB</th>
+                <th>Resume</th>
+                <th>Gender</th>
+                <th>Mobile</th>
+                <th>Email</th>
+            </tr>
+            {% for c in candidates %}
+                <tr>
+                    <td>{{c.name}}</td>
+                    <td>{{c.dob}}</td>
+                    {% if c.resume %}
+                    <td><a href='{{c.resume.url}}' download >{{c.resume}}</td></a></td>
+                    {% else %}
+                    <td>Not submitted</td>
+                    {% endif %}
+                    <td>{{c.gender}}</td>
+                    <td>{{c.mobile}}</td>
+                    <td>{{c.email}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+If the user is not authenticated (Job Seeker): Then it passes all the company objects to Jobseeker.html which displays company details in a tabular form with an option to apply to that organization.
+
+Jobseeker.html
+
+{% extends 'main.html' %}
+{% load static%}
+
+{% block content %}
+<div class="container card">
+    <h1>Available openings</h1>
+    <div class="card-body">
+        <table class="table table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Description</th>
+                <th>Salary</th>
+                <th>Experience</th>
+                <th>Location</th>
+                <th>Join</th>
+            </tr>
+            {% for c in companies %}
+                <tr>
+                    <td>{{c.name}}</td>
+                    <td>{{c.position}}</td>
+                    <td>{{c.description}}</td>
+                    <td>{{c.salary}}</td>
+                    <td>{{c.experience}}</td>
+                    <td>{{c.Location}}</td>
+                    <td><a href="{% url 'apply' %}" class="btn btn-info btn-sm" type="submit">Apply</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+        {% for c in companies %}
+            {{c.name}}
+        {% endfor %}
+{% endblock %}
